@@ -1,33 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-font-color: #f1f1f1;
+  --secondary-font-color: #737e7a;
+  --background-color: black;
+}
+
+/* Don't use default background color for auto complete inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset !important;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--primary-font-color) !important;
+}
+/* end of autocomplete background fix */
+
 html,
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--primary-font-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.app-root {
+.__app-root {
   display: grid;
   grid-template-rows: 60px auto 40px;
   height: 100vh;
   background-color: black;
 }
 
-.app-header {
-  background-color: yellow;
+.__app-content {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
-.app-main {
-  background-color: red;
+.__app-footer {
+  display: flex;
 }
 
-.app-footer {
-  background-color: pink;
+.__header-bar-root {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  padding: 0px 5px;
+  border-bottom: 1px solid var(--primary-font-color);
+}
+
+.__spacer {
+  flex-grow: 1;
+}
+
+.__header-title {
+  font-size: 1.5rem;
 }
