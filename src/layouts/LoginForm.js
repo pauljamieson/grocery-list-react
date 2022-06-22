@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUseStyles, useTheme } from "react-jss";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
+import { Link } from "react-router-dom";
 
 const useStyles = createUseStyles((theme) => ({
   root: {
@@ -19,6 +20,18 @@ const useStyles = createUseStyles((theme) => ({
     marginTop: "20px",
     transform: "scale(2)",
   },
+  links: {
+    display: "flex",
+    maxWidth: "400px",
+    width: "100%",
+    color: theme.fontPrimary,
+  },
+  link: {
+    color: "inherit",
+  },
+  spacer: {
+    flexGrow: 1,
+  },
 }));
 
 const LoginForm = (props) => {
@@ -31,6 +44,11 @@ const LoginForm = (props) => {
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.error("Clicked");
+  };
 
   return (
     <div className={classes.root}>
@@ -55,7 +73,16 @@ const LoginForm = (props) => {
         <input id="remember-me" type="checkbox" />
         <label htmlFor="remember-me">Remember Me</label>
       </div>
-      <Button />
+      <Button label="Sign In" fullWidth={true} onClick={handleClick} />
+      <div className={classes.links}>
+        <Link className={classes.link} to="/reset-password">
+          Forgot Password
+        </Link>
+        <div className={classes.spacer} />
+        <Link className={classes.link} to="/create-account">
+          Create A New Account
+        </Link>
+      </div>
     </div>
   );
 };

@@ -8,16 +8,17 @@ const useStyles = createUseStyles((theme) => ({
     padding: "10px",
     position: "relative",
     backgroundColor: theme.bgPrimary,
-
     maxWidth: "400px",
     width: "100%",
+    cursor: "pointer",
     "&:focus-within, &:hover": {
-      borderColor: `${theme.fontSecondary}`,
+      borderColor: theme.fontSecondary,
     },
   },
   input: {
     border: "none",
     outline: "none",
+    cursor: "pointer",
     fontSize: "1rem",
     color: theme.fontPrimary,
     backgroundColor: theme.bgPrimary,
