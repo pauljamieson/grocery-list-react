@@ -64,7 +64,6 @@ const SignUpForm = (props) => {
     if (!validateEmail(email)) return setErrorMessage("Email is not valid.");
     if (password?.length < 8)
       return setErrorMessage("Password must be 8+ characters.");
-    console.log(password);
     if (!validatePassword(password))
       return setErrorMessage(
         "Password must contain 1 uppercase, 1 lowercase and 1 number."
