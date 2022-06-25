@@ -56,30 +56,34 @@ const LoginForm = (props) => {
         account_circle
       </span>
       <h2>Sign In</h2>
-      <InputField
-        id="username"
-        onChange={handleUsernameChange}
-        value={username}
-        label="Username"
-      />
-      <InputField
-        id="password"
-        onChange={handlePasswordChange}
-        value={password}
-        label="Password"
-        type="password"
-      />
-      <div>
-        <input id="remember-me" type="checkbox" />
-        <label htmlFor="remember-me">Remember Me</label>
-      </div>
-      <Button label="Sign In" fullWidth={true} onClick={handleClick} />
+      <form className={classes.root}>
+        <InputField
+          id="username"
+          onChange={handleUsernameChange}
+          value={username}
+          label="Username"
+          autocomplete={"username"}
+        />
+        <InputField
+          id="password"
+          onChange={handlePasswordChange}
+          value={password}
+          label="Password"
+          type="password"
+          autocomplete={"current-password"}
+        />
+        <div>
+          <input id="remember-me" type="checkbox" />
+          <label htmlFor="remember-me">Remember Me</label>
+        </div>
+        <Button label="Sign In" fullWidth={true} onClick={handleClick} />
+      </form>
       <div className={classes.links}>
         <Link className={classes.link} to="/reset-password">
           Forgot Password
         </Link>
         <div className={classes.spacer} />
-        <Link className={classes.link} to="/create-account">
+        <Link className={classes.link} to="/sign-up">
           Create A New Account
         </Link>
       </div>
