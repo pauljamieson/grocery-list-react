@@ -1,15 +1,6 @@
 import { useState } from "react";
-import { createUseStyles, useTheme } from "react-jss";
-
-const useStyles = createUseStyles((theme) => ({
-  textColor: {
-    color: theme.errorMessage,
-  },
-}));
 
 const useErrorMessage = (duration) => {
-  const theme = useTheme();
-  const classes = useStyles();
   const [message, setMessage] = useState(null);
   const [timer, setTimer] = useState(null);
 

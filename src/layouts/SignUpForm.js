@@ -75,7 +75,7 @@ const SignUpForm = (props) => {
       return setErrorMessage("Username or Email already taken.");
     if (result.status === "failure" && result.data.error !== "DUPLICATE")
       return setErrorMessage("Failed to create user for unknown reason.");
-    setErrorMessage("Yippie");
+    console.log(result);
     navigate("/login");
   };
 

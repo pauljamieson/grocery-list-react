@@ -50,6 +50,6 @@ const Button = ({
 };
 
 Button.defaultProps = {
-  type: "submit",
+  type: "button",
 };
 export default Button;
