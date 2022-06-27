@@ -224,6 +224,8 @@ const ChangeEmailModal = ({ isVisible, setIsVisible, ...props }) => {
       const result = await changeEmail(email);
       if (result.status === "failure" && result.data.error === "DUPLICATE")
         return setErrorMessage("Email already taken.");
+      setEmail("");
+      setConfirmEmail("");
       setIsVisible(false);
     } catch (e) {
       console.error(e);
@@ -231,6 +233,7 @@ const ChangeEmailModal = ({ isVisible, setIsVisible, ...props }) => {
   };
 
   const handleCancelClick = (e) => {
+    setConfirmEmail("");
     setEmail("");
     setIsVisible(false);
   };
@@ -242,12 +245,12 @@ const ChangeEmailModal = ({ isVisible, setIsVisible, ...props }) => {
         <InputField
           label="New Email Address"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value.trim())}
         />
         <InputField
           label="Confirm Email Address"
           value={confirmEmail}
-          onChange={(e) => setConfirmEmail(e.target.value)}
+          onChange={(e) => setConfirmEmail(e.target.value.trim())}
         />
 
         <div className={classes.buttons}>
