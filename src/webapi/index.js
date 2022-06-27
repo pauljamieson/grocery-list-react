@@ -107,3 +107,16 @@ export const changePassword = (oldPassword, newPassword) => {
     }
   });
 };
+
+export const changeEmail = (email) => {
+  return new Promise(async (resolve, reject) => {
+    const field = "email";
+    const payload = { field, email };
+    try {
+      const resp = await _http("PUT", "/api/profile", payload);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};

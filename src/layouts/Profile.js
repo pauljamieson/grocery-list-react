@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 import Button from "../components/Button";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
-import { changePassword, getProfile, logout } from "../webapi";
+import { changePassword, changeEmail, getProfile, logout } from "../webapi";
 import InputField from "../components/InputField";
 import useErrorMessage from "../hooks/useErrorMessage";
 
@@ -40,8 +40,6 @@ const useStyles = createUseStyles((theme) => ({
   errorMessage: {
     color: theme.fontError,
     textAlign: "center",
-
-    
   },
 }));
 
@@ -50,6 +48,7 @@ const Profile = (props) => {
   const [account, setAccount] = useState(" ");
   const [showLogout, setShowLogout] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showChangeEmail, setShowChangeEmail] = useState(false);
 
   const classes = useStyles();
 
@@ -71,7 +70,7 @@ const Profile = (props) => {
       }
     };
     _getProfile();
-  }, []);
+  }, [showChangeEmail]);
 
   return (
     <div className={classes.root}>
@@ -81,7 +80,11 @@ const Profile = (props) => {
       <h2>Profile</h2>
       <InputField label={"Account Name"} value={account} disabled />
       <InputField label={"Email address"} value={email} disabled />
-      <Button fullWidth label="Change Email Address" />
+      <Button
+        fullWidth
+        label="Change Email Address"
+        onClick={() => setShowChangeEmail(true)}
+      />
       <Button
         fullWidth
         label="Change Password"
@@ -92,6 +95,10 @@ const Profile = (props) => {
       <ChangePasswordModal
         isVisible={showChangePassword}
         setIsVisible={setShowChangePassword}
+      />
+      <ChangeEmailModal
+        isVisible={showChangeEmail}
+        setIsVisible={setShowChangeEmail}
       />
     </div>
   );
@@ -144,7 +151,6 @@ const ChangePasswordModal = ({ isVisible, setIsVisible, ...props }) => {
   const handleClick = async (e) => {
     try {
       e.preventDefault();
-      console.log(newPassword, oldPassword, confirmPassword);
       if (newPassword?.length < 8)
         return setErrorMessage("Password must be 8+ characters.");
       if (!validatePassword(newPassword))
@@ -153,9 +159,7 @@ const ChangePasswordModal = ({ isVisible, setIsVisible, ...props }) => {
         );
       if (newPassword !== confirmPassword)
         return setErrorMessage("Confirm Password does not match Password.");
-      console.log("HERE");
       const result = await changePassword(oldPassword, newPassword);
-      console.log(result);
     } catch (e) {
       console.error(e);
     }
@@ -189,6 +193,65 @@ const ChangePasswordModal = ({ isVisible, setIsVisible, ...props }) => {
         />
         <div className={classes.buttons}>
           <Button type="button" label="Change Password" onClick={handleClick} />
+          <Button type="button" label="Cancel" onClick={handleCancelClick} />
+        </div>
+        <h4 className={classes.errorMessage}>{errorMessage}</h4>
+      </div>
+    </Modal>
+  );
+};
+
+const ChangeEmailModal = ({ isVisible, setIsVisible, ...props }) => {
+  const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useErrorMessage(3000);
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      if (email !== confirmEmail)
+        return setErrorMessage("Emails do not match.");
+      if (!validateEmail(email)) return setErrorMessage("Email is not valid.");
+      const result = await changeEmail(email);
+      if (result.status === "failure" && result.data.error === "DUPLICATE")
+        return setErrorMessage("Email already taken.");
+      setIsVisible(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleCancelClick = (e) => {
+    setEmail("");
+    setIsVisible(false);
+  };
+
+  return (
+    <Modal visible={isVisible}>
+      <div className={classes.modal}>
+        <h2>Change Email Address</h2>
+        <InputField
+          label="New Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputField
+          label="Confirm Email Address"
+          value={confirmEmail}
+          onChange={(e) => setConfirmEmail(e.target.value)}
+        />
+
+        <div className={classes.buttons}>
+          <Button type="button" label="Change Email" onClick={handleClick} />
           <Button type="button" label="Cancel" onClick={handleCancelClick} />
         </div>
         <h4 className={classes.errorMessage}>{errorMessage}</h4>
