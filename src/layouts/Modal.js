@@ -7,11 +7,10 @@ const useStyles = createUseStyles((theme) => ({
     right: 0,
     width: "100%",
     height: "100%",
-    position: "absolute",
+    position: "fixed",
   },
   window: {
-    position: "relative",
-    opacity: "90%",
+    
     backgroundColor: theme.bgPrimary,
     display: "flex",
     flexDirection: "column",

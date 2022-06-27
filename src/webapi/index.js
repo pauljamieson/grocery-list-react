@@ -22,7 +22,7 @@ const _http = (method, route, payload) => {
       const resp = await axios.request(request);
       if (resp.headers["token"] !== undefined)
         localStorage.setItem("token", resp.headers["token"]);
-      if (resp.headers) return resolve(resp.data);
+      return resolve(resp.data);
     } catch (e) {
       return reject(e);
     }
@@ -66,6 +66,41 @@ export const login = (username, password) => {
     try {
       const resp = await _http("POST", "/login", payload);
       if (resp.status === "success") localStorage.setItem("username", username);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const logout = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await _http("POST", "/api/auth/logout");
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const getProfile = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await _http("GET", "/api/profile");
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const changePassword = (oldPassword, newPassword) => {
+  return new Promise(async (resolve, reject) => {
+    const field = "password";
+    const payload = { field, oldPassword, newPassword };
+    try {
+      const resp = await _http("PUT", "/api/profile", payload);
       resolve(resp);
     } catch (e) {
       reject(e);
