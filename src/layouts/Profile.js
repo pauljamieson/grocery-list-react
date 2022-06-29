@@ -13,7 +13,7 @@ const useStyles = createUseStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     gap: "10px",
-    maxWidth: "800px",
+    maxWidth: theme.appWidth,
     flexGrow: 1,
   },
   modal: {

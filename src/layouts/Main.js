@@ -1,8 +1,10 @@
 import { Route, Routes } from "react-router-dom";
+import GroceryList from "./GroceryList";
 import GroceryLists from "./GroceryLists";
 import HeaderBar from "./HeaderBar";
 import LandingPage from "./LandingPage";
 import LoginForm from "./LoginForm";
+import NewGroceryList from "./NewGroceryList";
 import Profile from "./Profile";
 import SignUpForm from "./SignUpForm";
 
@@ -19,6 +21,8 @@ const Main = (props) => {
           <Route path="/sign-up" element={<SignUpForm />} />
           <Route path="/grocery-lists" element={<GroceryLists />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/grocery-list" element={<GroceryList />} />
+          <Route path="/new-grocery-list" element={<NewGroceryList />} />
         </Routes>
       </div>
       <div className="__app-footer">Footer</div>

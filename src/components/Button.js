@@ -10,6 +10,7 @@ const useStyles = createUseStyles((theme) => ({
     color: theme.fontPrimary,
     cursor: "pointer",
     border: "none",
+    borderRadius: "5px",
     "&:hover": {
       backgroundColor: theme.buttonPrimaryHover,
     },
