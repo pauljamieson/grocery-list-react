@@ -8,7 +8,9 @@ const theme = {
     buttonPrimary: "#6855ad",
     buttonPrimaryHover: "#8f73f5",
     appWidth: "800px",
-    flexSpacing: "10px",
+    flexSpacing: "5px",
+    listItemBg: "#000000",
+    selected: "#133"
   },
 };
 

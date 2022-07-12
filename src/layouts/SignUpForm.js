@@ -58,6 +58,9 @@ const SignUpForm = (props) => {
   };
 
   const handleClick = async (e) => {
+    setUsername(username.trim());
+    setPassword(password.trim());
+    setEmail(email.trim());
     e.preventDefault();
     if (username?.length < 4)
       return setErrorMessage("Username must be 4+ characters.");

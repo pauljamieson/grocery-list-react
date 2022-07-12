@@ -8,9 +8,9 @@ const useStyles = createUseStyles((theme) => ({
     width: "100%",
     height: "100%",
     position: "fixed",
+    zIndex: 1000,
   },
   window: {
-    
     backgroundColor: theme.bgPrimary,
     display: "flex",
     flexDirection: "column",

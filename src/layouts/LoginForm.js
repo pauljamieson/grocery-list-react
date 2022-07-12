@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createUseStyles, useTheme } from "react-jss";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
@@ -53,11 +53,15 @@ const LoginForm = (props) => {
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) navigate("/profile");
+  }, [navigate]);
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const result = await login(username, password);
-      if (result.status === "failure") throw "Failed to login.";
+      const result = await login(username.trim(), password.trim());
+      if (result.status === "failure") throw new Error("Failed to login.");
       if (result.status === "success") navigate("/grocery-lists");
     } catch (e) {
       setErrorMessage(e);

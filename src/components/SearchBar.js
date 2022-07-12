@@ -21,12 +21,15 @@ const useStyles = createUseStyles((theme) => ({
 const SearchBar = ({
   id,
   name,
-  placeholder = false,
+  placeholder,
   value,
   onChange,
+  onKeyDown,
+  suggestions,
   ...props
 }) => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <span className="material-symbols-outlined">search</span>
@@ -37,12 +40,21 @@ const SearchBar = ({
         value={value}
         onChange={onChange}
         className={classes.input}
+        onKeyDown={onKeyDown}
         type="text"
+        list="options"
       ></input>
+      <datalist className={classes.option} id="options">
+        {suggestions.map((val, idx) => (
+          <option className={classes.option} key={idx}>
+            {val}
+          </option>
+        ))}
+      </datalist>
     </div>
   );
 };
 
-SearchBar.defaultProps = { placeholder: "Search" };
+SearchBar.defaultProps = { placeholder: "Search", suggestions: [] };
 
 export default SearchBar;

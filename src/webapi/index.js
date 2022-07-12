@@ -9,15 +9,18 @@ const _http = (method, route, payload) => {
   return new Promise(async (resolve, reject) => {
     const optionalHeaders = _createOptionalHeaders();
     try {
+      const url = new URL(route, BASEURL);
       const request = {
-        url: new URL(route, BASEURL),
+        url: url.toString(),
         method: method,
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           ...optionalHeaders,
         },
-        data: JSON.stringify(payload),
+        params: method.toLowerCase() === "get" ? payload : undefined,
+        data:
+          method.toLowerCase() !== "get" ? JSON.stringify(payload) : undefined,
       };
       const resp = await axios.request(request);
       if (resp.headers["token"] !== undefined)
@@ -49,7 +52,7 @@ export const signUp = (username, email, password) => {
       password,
     };
     try {
-      const resp = await _http("POST", "/signUp", payload);
+      const resp = await _http("POST", "/api/signUp", payload);
       resolve(resp);
     } catch (e) {
       reject(e);
@@ -64,7 +67,7 @@ export const login = (username, password) => {
       password,
     };
     try {
-      const resp = await _http("POST", "/login", payload);
+      const resp = await _http("POST", "/api/login", payload);
       if (resp.status === "success") localStorage.setItem("username", username);
       resolve(resp);
     } catch (e) {
@@ -114,6 +117,102 @@ export const changeEmail = (email) => {
     const payload = { field, email };
     try {
       const resp = await _http("PUT", "/api/profile", payload);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const createGroceryList = (name) => {
+  return new Promise(async (resolve, reject) => {
+    const payload = { name };
+    try {
+      const resp = await _http("POST", "/api/grocery-list", payload);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const deleteGroceryList = (id) => {
+  return new Promise(async (resolve, reject) => {
+    const payload = { id };
+    try {
+      const resp = await _http("DELETE", "/api/grocery-list", payload);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const getGroceryLists = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await _http("GET", "/api/grocery-lists");
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const getGroceryList = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resp = await _http("GET", `/api/grocery-list/${id}`);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const addItemToList = (listId, item) => {
+  return new Promise(async (resolve, reject) => {
+    const payload = { item };
+    try {
+      const resp = await _http("PUT", `/api/grocery-list/${listId}`, payload);
+      resolve(resp);
+    } catch (e) {}
+  });
+};
+
+export const removeItemFromList = (listId, item) => {
+  return new Promise(async (resolve, reject) => {
+    const payload = { item };
+    try {
+      const resp = await _http(
+        "DELETE",
+        `/api/grocery-list/${listId}`,
+        payload
+      );
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const setItemSelectedStatus = (listId, item, status) => {
+  return new Promise(async (resolve, reject) => {
+    const payload = { item, status };
+    try {
+      const resp = await _http("PATCH", `/api/grocery-list/${listId}`, payload);
+      resolve(resp);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const getItems = (filter) => {
+  return new Promise(async (resolve, reject) => {
+    const params = { filter };
+    try {
+      const resp = await _http("GET", "/api/grocery-list/", params);
       resolve(resp);
     } catch (e) {
       reject(e);

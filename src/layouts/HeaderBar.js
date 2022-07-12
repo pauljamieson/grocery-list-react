@@ -1,5 +1,5 @@
 import { useNavigate, NavLink } from "react-router-dom";
-import { createUseStyles, useTheme } from "react-jss";
+import { createUseStyles } from "react-jss";
 import Button from "../components/Button";
 
 const useStyles = createUseStyles((theme) => ({
@@ -23,20 +23,23 @@ const useStyles = createUseStyles((theme) => ({
       backgroundColor: theme.buttonPrimaryHover,
     },
   },
+  spacer: { flexGrow: 1 },
+  title: {
+    fontSize: "1.5rem",
+  },
 }));
 
 const HeaderBar = (props) => {
   const navigate = useNavigate();
-  const theme = useTheme();
   const classes = useStyles();
   const handleLoginClick = (e) => navigate("/login");
   const handleProfileClick = (e) => navigate("/profile");
   const handleListsClick = (e) => navigate("/grocery-lists");
 
   return (
-    <div className="__header-bar-root">
-      <div className="__header-title">Grocery List</div>
-      <div className="__spacer" />
+    <div className={classes.root}>
+      <div className={classes.title}>Grocery List</div>
+      <div className={classes.spacer} />
       <div className={classes.buttonBar}>
         {localStorage.getItem("username") === null ? (
           <NavLink to={"/login"}>

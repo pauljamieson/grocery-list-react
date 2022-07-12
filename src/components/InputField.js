@@ -23,7 +23,13 @@ const useStyles = createUseStyles((theme) => ({
     color: theme.fontPrimary,
     backgroundColor: theme.bgPrimary,
     width: "100%",
+    "&:-webkit-autofill": {
+      boxShadow: `0 0 0 30px ${theme.bgPrimary} inset !important`,
+      WebkitTextFillColor: theme.fontPrimary,
+    },
   },
+
+  /* */
   label: {
     position: "absolute",
     background: "transparent",

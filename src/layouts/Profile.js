@@ -252,7 +252,6 @@ const ChangeEmailModal = ({ isVisible, setIsVisible, ...props }) => {
           value={confirmEmail}
           onChange={(e) => setConfirmEmail(e.target.value.trim())}
         />
-
         <div className={classes.buttons}>
           <Button type="button" label="Change Email" onClick={handleClick} />
           <Button type="button" label="Cancel" onClick={handleCancelClick} />
