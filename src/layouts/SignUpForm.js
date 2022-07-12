@@ -119,8 +119,13 @@ const SignUpForm = (props) => {
           type="password"
           autocomplete={"new-password"}
         />
-        <div></div>
-        <Button label="Sign Up" fullWidth={true} onClick={handleClick} />
+
+        <Button
+          label="Sign Up"
+          type="submit"
+          fullWidth={true}
+          onClick={handleClick}
+        />
       </form>
       <h4 className={classes.errorMessage}>{errorMessage}</h4>
     </div>

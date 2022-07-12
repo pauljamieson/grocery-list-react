@@ -91,7 +91,12 @@ const LoginForm = (props) => {
           autocomplete={"current-password"}
         />
 
-        <Button label="Sign In" fullWidth={true} onClick={handleClick} />
+        <Button
+          label="Sign In"
+          type="submit"
+          fullWidth={true}
+          onClick={handleClick}
+        />
       </form>
       <div className={classes.links}>
         <Link className={classes.link} to="/reset-password">

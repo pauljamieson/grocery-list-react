@@ -3,7 +3,7 @@ import axios from "axios";
 const BASEURL =
   process.env.NODE_ENV === "development"
     ? "http://192.168.0.121:5000"
-    : "http://groceries.hopto.me/";
+    : "http://groceries.hopto.me";
 
 const _http = (method, route, payload) => {
   return new Promise(async (resolve, reject) => {
