@@ -3,7 +3,7 @@ import axios from "axios";
 const BASEURL =
   process.env.NODE_ENV === "development"
     ? "http://192.168.0.121:5000"
-    : "http://192.168.0.150:8004";
+    : process.env.REACT_APP_HOST;
 
 const _http = (method, route, payload) => {
   return new Promise(async (resolve, reject) => {
